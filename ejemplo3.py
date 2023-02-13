@@ -238,7 +238,7 @@ def menu_optinos(screen, font, BLACK, menu_items, item_rects):
         img2 = font2.render('Black Jack 21', True, BLACK)
         screen.blit(img2, (600, 115))
 
-continu = 0
+
 clock = pygame.time.Clock()
 
 while True:
@@ -317,7 +317,6 @@ while True:
                             print('Start clicked')
                             bg_img(width, height, screen)
                             running = True
-                            
                             while running:
 
                                 # print(card_images)
@@ -393,8 +392,6 @@ while True:
                                     if back_m.collidepoint(pygame.mouse.get_pos()):
                                         running = False
                                         m_run = False
-                                        continu += 1
-                                        print(continu, 's')
                                         bg_img(width, height, screen)
                                         menu_optinos(
                                             screen, font, BLACK, menu_items, item_rects)
@@ -403,11 +400,7 @@ while True:
                                 pygame.display.update()
                     elif index == 1:
                         running = True
-                        
                         while running:
-
-                            
-                            
                             for event in pygame.event.get():
                                 if event.type == QUIT:
                                     sys.exit()
@@ -418,7 +411,6 @@ while True:
                                 if back_m.collidepoint(pygame.mouse.get_pos()):
                                     running = False
                                     bg_img(width, height, screen)
-                                    
                                     menu_optinos(
                                         screen, font, BLACK, menu_items, item_rects)
 
