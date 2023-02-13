@@ -44,8 +44,13 @@ def standButton(screen):
     # Set the font for the button text
     # Set the text for the button
     stand_text = font.render("Stand", True, (255, 255, 255))
+    mouse_pos = pygame.mouse.get_pos()
+    if stand_button.collidepoint(mouse_pos):
+        color = hover_color
+    else:
+        color = button_color
     # Draw the button on the screen
-    pygame.draw.rect(screen, (0, 0, 255), stand_button)
+    pygame.draw.rect(screen, color, stand_button)
     screen.blit(stand_text, (1300, 800))
     return stand_button
 
@@ -55,8 +60,13 @@ def playAgain(screen):
     # Set the font for the button text
     # Set the text for the button
     play_again_text = font.render("play Again", True, (255, 255, 255))
+    mouse_pos = pygame.mouse.get_pos()
+    if play_again.collidepoint(mouse_pos):
+        color = hover_color
+    else:
+        color = button_color
     # Draw the button on the screen
-    pygame.draw.rect(screen, (0, 0, 255), play_again)
+    pygame.draw.rect(screen, color, play_again)
     screen.blit(play_again_text, (600, 650))
     return play_again
 
@@ -66,8 +76,13 @@ def backs(screen):
     # Set the font for the button text
     # Set the text for the button
     back_m_text = font.render("Back", True, (255, 255, 255))
+    mouse_pos = pygame.mouse.get_pos()
+    if back_m.collidepoint(mouse_pos):
+        color = hover_color
+    else:
+        color = button_color
     # Draw the button on the screen
-    pygame.draw.rect(screen, (0, 0, 255), back_m)
+    pygame.draw.rect(screen, color, back_m)
     screen.blit(back_m_text, (222, 650))
     return back_m
 
@@ -77,8 +92,13 @@ def hit_Buton(screen):
     # Set the font for the button text
     # Set the text for the button
     hit_text = font.render("Hit", True, (255, 255, 255))
+    mouse_pos = pygame.mouse.get_pos()
+    if hit_button.collidepoint(mouse_pos):
+        color = hover_color
+    else:
+        color = button_color
     # Draw the button on the screen
-    pygame.draw.rect(screen, (0, 0, 0), hit_button)
+    pygame.draw.rect(screen, color, hit_button)
     screen.blit(hit_text, (75, 570))
     return hit_button
 
@@ -162,6 +182,11 @@ def draw_card(screen, card_images, dealer_hand, player_hand):
 def check_player_value(screen, font, card_images, dealer_hand, player_hand, draw_card, player_value):
     if player_value == 21:
         draw_card(screen, card_images, dealer_hand, player_hand)
+        bg_img(width, height, screen)
+        backs(screen)
+        exitButton(screen)
+        playAgain(screen)
+        draw_card(screen, card_images, dealer_hand, player_hand)
         player_message = font.render(
             "Player wins with 21 (Blackjack)!", True, (20, 255, 255))
         screen.blit(player_message, (200, 300))
@@ -169,6 +194,11 @@ def check_player_value(screen, font, card_images, dealer_hand, player_hand, draw
         return True
 
     elif player_value > 21:
+        draw_card(screen, card_images, dealer_hand, player_hand)
+        bg_img(width, height, screen)
+        backs(screen)
+        exitButton(screen)
+        playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         player_bust_message = font.render(
             "Player busts!", True, (255, 55, 255))
@@ -182,6 +212,11 @@ def check_player_value(screen, font, card_images, dealer_hand, player_hand, draw
 def check_dealer_value(player_value, dealer_value):
     if dealer_value == 21:
         draw_card(screen, card_images, dealer_hand, player_hand)
+        bg_img(width, height, screen)
+        backs(screen)
+        exitButton(screen)
+        playAgain(screen)
+        draw_card(screen, card_images, dealer_hand, player_hand)
         dealer_message = font.render(
             "Dealer wins with 21 (Blackjack)!", True, (25, 255, 255))
         screen.blit(dealer_message, (200, 300))
@@ -191,6 +226,11 @@ def check_dealer_value(player_value, dealer_value):
         # Check for bust
     elif dealer_value > 21:
         draw_card(screen, card_images, dealer_hand, player_hand)
+        bg_img(width, height, screen)
+        backs(screen)
+        exitButton(screen)
+        playAgain(screen)
+        draw_card(screen, card_images, dealer_hand, player_hand)
         dealer_bust_message = font.render(
             "Dealer busts!", True, (255, 255, 55))
         screen.blit(dealer_bust_message, (200, 300))
@@ -198,6 +238,11 @@ def check_dealer_value(player_value, dealer_value):
         return True
 
     elif dealer_value >= player_value < 21:
+        draw_card(screen, card_images, dealer_hand, player_hand)
+        bg_img(width, height, screen)
+        backs(screen)
+        exitButton(screen)
+        playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         dealer_bust_message = font.render(
             "Dealer Win!", True, (255, 255, 55))
