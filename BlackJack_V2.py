@@ -13,15 +13,14 @@ pygame.init()
 width, height = 1920, 1080
 screen = pygame.display.set_mode((width, height), FULLSCREEN)
 pygame.display.set_caption("21 (Blackjack)")
-# Create a font for displaying text
 # Set font and size
 font = pygame.font.SysFont('arial', 30)
-# Create the exit button
-
+# Create the exit butt
+ # Define colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
 hover_color = (255, 0, 0)
 button_color = (65, 93, 54)
-mouse_pos = pygame.mouse.get_pos()
-print(mouse_pos)
 
 def exitButton(screen):
     exit_button = pygame.Rect(1390, 0, 70, 60)
@@ -30,7 +29,6 @@ def exitButton(screen):
     exit_text = font.render("X", True, (255, 255, 255))
     # Draw the button on the screen
     mouse_pos = pygame.mouse.get_pos()
-    print(mouse_pos)
     if exit_button.collidepoint(mouse_pos):
         color = hover_color
     else:
@@ -40,7 +38,6 @@ def exitButton(screen):
     return exit_button
 
 # Create the stand button
-
 
 def standButton(screen):
     stand_button = pygame.Rect(760, 700, 100, 75)
@@ -255,9 +252,6 @@ def check_dealer_value(player_value, dealer_value):
     else:
         return False
 
- # Define colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
 
 # Create menu items
 menu_items = ['Start', 'Rules', 'Quit']
@@ -284,7 +278,8 @@ def menu_optinos(screen, font, BLACK, menu_items, item_rects):
 
 
 clock = pygame.time.Clock()
-p1 = ("————Reglas————",
+# Create a varibel for displaying text
+regles = ("————Reglas————",
      "El objetivo del juego es conseguir o aproximarse al número 21","sumando el número de las cartas que te aparecen",
 
 
@@ -304,7 +299,7 @@ p1 = ("————Reglas————",
      "J, Q, K = 10",
      "A = 1")
 def text(screen):
-   for i, x in enumerate(p1):
+   for i, x in enumerate(regles):
        print(x)
        r = 100
        c = 400
