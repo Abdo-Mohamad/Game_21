@@ -14,7 +14,8 @@ width, height = 1920, 1080
 screen = pygame.display.set_mode((width, height), FULLSCREEN)
 pygame.display.set_caption("21 (Blackjack)")
 # Create a font for displaying text
-font = pygame.font.SysFont('arial', 36)
+# Set font and size
+font = pygame.font.SysFont('arial', 30)
 # Create the exit button
 
 hover_color = (255, 0, 0)
@@ -23,7 +24,7 @@ mouse_pos = pygame.mouse.get_pos()
 print(mouse_pos)
 
 def exitButton(screen):
-    exit_button = pygame.Rect(1330, 0, 110, 50)
+    exit_button = pygame.Rect(1390, 0, 70, 60)
     # Set the font for the button text
     # Set the text for the button
     exit_text = font.render("X", True, (255, 255, 255))
@@ -35,14 +36,14 @@ def exitButton(screen):
     else:
         color = button_color
     pygame.draw.rect(screen, color, exit_button)
-    screen.blit(exit_text, (1360, 10))
+    screen.blit(exit_text, (1407, 18))
     return exit_button
 
 # Create the stand button
 
 
 def standButton(screen):
-    stand_button = pygame.Rect(1290, 785, 80, 50)
+    stand_button = pygame.Rect(760, 700, 100, 75)
     # Set the font for the button text
     # Set the text for the button
     stand_text = font.render("Stand", True, (255, 255, 255))
@@ -53,12 +54,12 @@ def standButton(screen):
         color = button_color
     # Draw the button on the screen
     pygame.draw.rect(screen, color, stand_button)
-    screen.blit(stand_text, (1300, 800))
+    screen.blit(stand_text, (780, 730))
     return stand_button
 
 
 def playAgain(screen):
-    play_again = pygame.Rect(600, 650, 100, 50)
+    play_again = pygame.Rect(680, 600, 140, 70)
     # Set the font for the button text
     # Set the text for the button
     play_again_text = font.render("play Again", True, (255, 255, 255))
@@ -69,12 +70,12 @@ def playAgain(screen):
         color = button_color
     # Draw the button on the screen
     pygame.draw.rect(screen, color, play_again)
-    screen.blit(play_again_text, (600, 650))
+    screen.blit(play_again_text, (700, 624))
     return play_again
 
 
 def backs(screen):
-    back_m = pygame.Rect(172, 650, 100, 50)
+    back_m = pygame.Rect(0, 0, 100, 50)
     # Set the font for the button text
     # Set the text for the button
     back_m_text = font.render("Back", True, (255, 255, 255))
@@ -85,12 +86,12 @@ def backs(screen):
         color = button_color
     # Draw the button on the screen
     pygame.draw.rect(screen, color, back_m)
-    screen.blit(back_m_text, (222, 650))
+    screen.blit(back_m_text, (12, 16))
     return back_m
 
 
 def hit_Buton(screen):
-    hit_button = pygame.Rect(50, 550, 80, 50)
+    hit_button = pygame.Rect(640, 700, 100, 75)
     # Set the font for the button text
     # Set the text for the button
     hit_text = font.render("Hit", True, (255, 255, 255))
@@ -101,12 +102,12 @@ def hit_Buton(screen):
         color = button_color
     # Draw the button on the screen
     pygame.draw.rect(screen, color, hit_button)
-    screen.blit(hit_text, (75, 570))
+    screen.blit(hit_text, (675, 730))
     return hit_button
 
 
 def bg_img(width, height, screen):
-    bg_img = pygame.image.load('background.jpg')
+    bg_img = pygame.image.load('cards/background.jpg')
     bg_img = pygame.transform.scale(bg_img, (width, height))
     screen.blit(bg_img, (0, 0))
 
@@ -155,7 +156,7 @@ def draw_card(screen, card_images, dealer_hand, player_hand):
             imagey = pygame.transform.scale(
                 card_images[cardy], (image_size_w, image_size_h))
             screen.blit(imagey, (y, 50))
-            back = pygame.image.load('back2.jpg')
+            back = pygame.image.load('cards/card_back.jpg')
             back = pygame.transform.scale(
                 back, (image_size_w, image_size_h))
             screen.blit(back, (y+200, 50))
@@ -261,9 +262,6 @@ BLACK = (0, 0, 0)
 # Create menu items
 menu_items = ['Start', 'Rules', 'Quit']
 
-# Set font and size
-font = pygame.font.Font(None, 50)
-
 # Create a list to store the menu items' rectangles
 item_rects = []
 
@@ -286,7 +284,38 @@ def menu_optinos(screen, font, BLACK, menu_items, item_rects):
 
 
 clock = pygame.time.Clock()
+p1 = ("————Reglas————",
+     "El objetivo del juego es conseguir o aproximarse al número 21","sumando el número de las cartas que te aparecen",
 
+
+     "Si la suma de los números de tus cartas superan 21 pierdes.",
+     "Si el valor de la suma de las cartas es igual a 21 automáticamente ganas.",
+     "Empiezas con 2 cartas, donde la suma máxima de las 2 cartas iniciales es 20.",
+     "El crupier solo participa en el juego si el jugador se ha quedado con un valor",
+     "inferior o igual a 20.",
+
+
+
+
+     "·····Valor de la cartas·····",
+     "Las cartas con un valor numérico se quedan igual, es decir el 2 vale 2 y el 10",
+     "vale 10, así con todos los números.",
+     "El valor de las figuras es el siguiente:",
+     "J, Q, K = 10",
+     "A = 1")
+def text(screen):
+   for i, x in enumerate(p1):
+       print(x)
+       r = 100
+       c = 400
+       y = i * 50 + r
+       if i == 0:
+           y = r
+           c = 600
+       elif i == 8:
+           c = 600
+       img = font.render(x, True, (0, 0, 0))
+       screen.blit(img, (c, y))
 while True:
     bg_img(width, height, screen)
 
@@ -329,7 +358,7 @@ while True:
 
                             for value in card_values:
                                 for suit in card_suits:
-                                    file_path = f"cart_img/{value}{suit}.jpg"
+                                    file_path = f"cards/{value}{suit}.jpg"
                                     card_images[f"{value}{suit}"] = pygame.image.load(
                                         file_path)
 
@@ -452,7 +481,7 @@ while True:
                                     sys.exit()
                             bg_img(width, height, screen)
                             back_m = backs(screen)
-
+                            text(screen)
                             if pygame.mouse.get_pressed()[0]:
                                 if back_m.collidepoint(pygame.mouse.get_pos()):
                                     running = False
