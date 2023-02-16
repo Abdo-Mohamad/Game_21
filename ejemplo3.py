@@ -17,23 +17,25 @@ pygame.display.set_caption("21 (Blackjack)")
 font = pygame.font.SysFont('arial', 36)
 # Create the exit button
 
-hover_color = (0, 255, 0)
-button_color = (255, 0, 0)
-
+hover_color = (255, 0, 0)
+button_color = (65, 93, 54)
+mouse_pos = pygame.mouse.get_pos()
+print(mouse_pos)
 
 def exitButton(screen):
-    exit_button = pygame.Rect(700, 550, 80, 50)
+    exit_button = pygame.Rect(1330, 0, 110, 50)
     # Set the font for the button text
     # Set the text for the button
-    exit_text = font.render("Exit", True, (255, 255, 255))
+    exit_text = font.render("X", True, (255, 255, 255))
     # Draw the button on the screen
     mouse_pos = pygame.mouse.get_pos()
+    print(mouse_pos)
     if exit_button.collidepoint(mouse_pos):
         color = hover_color
     else:
         color = button_color
     pygame.draw.rect(screen, color, exit_button)
-    screen.blit(exit_text, (725, 570))
+    screen.blit(exit_text, (1360, 10))
     return exit_button
 
 # Create the stand button
@@ -251,7 +253,6 @@ def check_dealer_value(player_value, dealer_value):
         return True
     else:
         return False
-
 
  # Define colors
 WHITE = (255, 255, 255)
