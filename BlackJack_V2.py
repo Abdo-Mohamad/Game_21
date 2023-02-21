@@ -4,10 +4,32 @@ import sys
 import random
 import time
 import numpy as np
+from pygame import mixer
 # Initialize Pygame
 
 
 pygame.init()
+
+
+def play_music(file_paths):
+    # Initialize Pygame
+    pygame.init()
+
+    # Load music files
+    music_list = []
+    for path in file_paths:
+        music_list.append(pygame.mixer.Sound(path))
+
+    # Play music files
+    for music in music_list:
+        music.play(loops=0)
+
+
+# Example usage
+file_paths = ["music/m1.mp3"]
+# Play the music files
+play_music(file_paths)
+
 
 # Set screen size and caption
 width, height = 1920, 1080
@@ -16,11 +38,12 @@ pygame.display.set_caption("21 (Blackjack)")
 # Set font and size
 font = pygame.font.SysFont('arial', 30)
 # Create the exit butt
- # Define colors
+# Define colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 hover_color = (255, 0, 0)
 button_color = (65, 93, 54)
+
 
 def exitButton(screen):
     exit_button = pygame.Rect(1390, 0, 70, 60)
@@ -39,6 +62,7 @@ def exitButton(screen):
 
 # Create the stand button
 
+
 def standButton(screen):
     stand_button = pygame.Rect(760, 700, 100, 75)
     # Set the font for the button text
@@ -56,10 +80,10 @@ def standButton(screen):
 
 
 def playAgain(screen):
-    play_again = pygame.Rect(680, 600, 140, 70)
+    play_again = pygame.Rect(700, 600, 140, 70)
     # Set the font for the button text
     # Set the text for the button
-    play_again_text = font.render("play Again", True, (255, 255, 255))
+    play_again_text = font.render("Play again", True, (255, 255, 255))
     mouse_pos = pygame.mouse.get_pos()
     if play_again.collidepoint(mouse_pos):
         color = hover_color
@@ -280,37 +304,41 @@ def menu_optinos(screen, font, BLACK, menu_items, item_rects):
 clock = pygame.time.Clock()
 # Create a varibel for displaying text
 regles = ("————Reglas————",
-     "El objetivo del juego es conseguir o aproximarse al número 21","sumando el número de las cartas que te aparecen",
+          "El objetivo del juego es conseguir o aproximarse al número 21", "sumando el número de las cartas que te aparecen.",
 
 
-     "Si la suma de los números de tus cartas superan 21 pierdes.",
-     "Si el valor de la suma de las cartas es igual a 21 automáticamente ganas.",
-     "Empiezas con 2 cartas, donde la suma máxima de las 2 cartas iniciales es 20.",
-     "El crupier solo participa en el juego si el jugador se ha quedado con un valor",
-     "inferior o igual a 20.",
+          "Si la suma de los números de tus cartas superan 21 pierdes.",
+          "Si el valor de la suma de las cartas es igual a 21 automáticamente ganas.",
+          "Empiezas con 2 cartas, donde la suma máxima de las 2 cartas iniciales es 20.",
+          "El crupier solo participa en el juego si el jugador se ha quedado con un valor",
+          "inferior o igual a 20.",
 
 
 
 
-     "·····Valor de la cartas·····",
-     "Las cartas con un valor numérico se quedan igual, es decir el 2 vale 2 y el 10",
-     "vale 10, así con todos los números.",
-     "El valor de las figuras es el siguiente:",
-     "J, Q, K = 10",
-     "A = 1")
+          "·····Valor de la cartas·····",
+          "Las cartas con un valor numérico se quedan igual, es decir, el 2 vale 2 y el 10",
+          "vale 10, así con todos los números.",
+          "El valor de las figuras es el siguiente:",
+          "J, Q, K = 10",
+          "A = 1")
+
+
 def text(screen):
-   for i, x in enumerate(regles):
-       print(x)
-       r = 100
-       c = 400
-       y = i * 50 + r
-       if i == 0:
-           y = r
-           c = 600
-       elif i == 8:
-           c = 600
-       img = font.render(x, True, (0, 0, 0))
-       screen.blit(img, (c, y))
+    for i, x in enumerate(regles):
+        print(x)
+        r = 100
+        c = 300
+        y = i * 50 + r
+        if i == 0:
+            y = r
+            c = 600
+        elif i == 8:
+            c = 600
+        img = font.render(x, True, (0, 0, 0))
+        screen.blit(img, (c, y))
+
+
 while True:
     bg_img(width, height, screen)
 
