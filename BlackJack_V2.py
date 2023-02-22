@@ -40,7 +40,6 @@ BLACK = (0, 0, 0)
 hover_color = (255, 0, 0)
 button_color = (65, 93, 54)
 
-
 def exitButton(screen):
     exit_button = pygame.Rect(1390, 0, 70, 60)
     # Set the font for the button text
@@ -87,7 +86,7 @@ def playAgain(screen):
         color = button_color
     # Draw the button on the screen
     pygame.draw.rect(screen, color, play_again)
-    screen.blit(play_again_text, (700, 624))
+    screen.blit(play_again_text, (700, 644))
     return play_again
 
 
@@ -208,8 +207,8 @@ def check_player_value(screen, font, card_images, dealer_hand, player_hand, draw
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         player_message = font.render(
-            "Player wins with 21 (Blackjack)!", True, (20, 255, 255))
-        screen.blit(player_message, (200, 300))
+            "Player wins with 21 (Blackjack)!", True, (0, 0, 0))
+        screen.blit(player_message, (1000, 300))
         pygame.display.flip()
         return True
 
@@ -221,8 +220,8 @@ def check_player_value(screen, font, card_images, dealer_hand, player_hand, draw
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         player_bust_message = font.render(
-            "Player busts!", True, (255, 55, 255))
-        screen.blit(player_bust_message, (200, 300))
+            "The sum of the worth of your cards is higher than 21 dealer", True, (255, 55, 255))
+        screen.blit(player_bust_message, (700, 300))
         pygame.display.flip()
         return True
     else:
@@ -238,8 +237,8 @@ def check_dealer_value(player_value, dealer_value):
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         dealer_message = font.render(
-            "Dealer wins with 21 (Blackjack)!", True, (25, 255, 255))
-        screen.blit(dealer_message, (200, 300))
+            "Dealer have 21 (Blackjack) dealer win!", True, (0, 0, 0))
+        screen.blit(dealer_message, (1000, 300))
         pygame.display.flip()
         return True
 
@@ -252,8 +251,8 @@ def check_dealer_value(player_value, dealer_value):
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         dealer_bust_message = font.render(
-            "Dealer busts!", True, (255, 255, 55))
-        screen.blit(dealer_bust_message, (200, 300))
+            "Dealer busts! You win!", True, (0, 0, 0))
+        screen.blit(dealer_bust_message, (1000, 300))
         pygame.display.flip()
         return True
 
@@ -265,8 +264,8 @@ def check_dealer_value(player_value, dealer_value):
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         dealer_bust_message = font.render(
-            "Dealer Win!", True, (255, 255, 55))
-        screen.blit(dealer_bust_message, (200, 300))
+            "Dealer Win!", True, (0, 0, 0))
+        screen.blit(dealer_bust_message, (1000, 300))
         pygame.display.flip()
         return True
     else:
