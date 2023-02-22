@@ -355,12 +355,10 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:  # Stop sound
                 sound_channel.stop()
-            elif event.key == pygame.K_n:
+            elif event.key == pygame.K_c:
                 sound_channel.unpause()
             elif event.key == pygame.K_p:
                 sound_channel.pause()
-            elif event.key == pygame.K_r:
-                pygame.mixer.music.play()
             elif event.key == pygame.K_r:
                 sound_channel.play(sound)
     ts = True
@@ -373,7 +371,7 @@ while True:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_s:  # Stop sound
                     sound_channel.stop()
-                elif event.key == pygame.K_n:
+                elif event.key == pygame.K_c:
                     sound_channel.unpause()
                 elif event.key == pygame.K_p:
                     sound_channel.pause()
@@ -398,7 +396,7 @@ while True:
                                 if event.type == pygame.KEYDOWN:
                                     if event.key == pygame.K_s:  # Stop sound
                                         sound_channel.stop()
-                                    elif event.key == pygame.K_n:
+                                    elif event.key == pygame.K_c:
                                         sound_channel.unpause()
                                     elif event.key == pygame.K_p:
                                         sound_channel.pause()
@@ -495,7 +493,7 @@ while True:
                                     if event.type == pygame.KEYDOWN:
                                         if event.key == pygame.K_s:  # Stop sound
                                             sound_channel.stop()
-                                        elif event.key == pygame.K_n:
+                                        elif event.key == pygame.K_c:
                                             sound_channel.unpause()
                                         elif event.key == pygame.K_p:
                                             sound_channel.pause()
@@ -563,7 +561,7 @@ while True:
                                 if event.type == pygame.KEYDOWN:
                                     if event.key == pygame.K_s:  # Stop sound
                                         sound_channel.stop()
-                                    elif event.key == pygame.K_n:
+                                    elif event.key == pygame.K_c:
                                         sound_channel.unpause()
                                     elif event.key == pygame.K_p:
                                         sound_channel.pause()
