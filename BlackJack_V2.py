@@ -11,24 +11,20 @@ from pygame import mixer
 pygame.init()
 
 
-def play_music(file_paths):
-    # Initialize Pygame
-    pygame.init()
+def play_sound(sound_path, volume=1.0, loops=0):
+    """Function to play a sound in the background."""
+    sound = pygame.mixer.Sound(sound_path)
+    sound.set_volume(volume)
+    sound_channel = sound.play(loops=loops)
 
-    # Load music files
-    music_list = []
-    for path in file_paths:
-        music_list.append(pygame.mixer.Sound(path))
+    return sound_channel
 
-    # Play music files
-    for music in music_list:
-        music.play(loops=0)
+# Load your game resources and initialize your game
 
 
-# Example usage
-file_paths = ["music/m1.mp3"]
-# Play the music files
-play_music(file_paths)
+# Play sound in the background
+sound = pygame.mixer.Sound("music/m1.mp3")
+sound_channel = play_sound("music/m1.mp3", volume=0.5, loops=-1)
 
 
 # Set screen size and caption
@@ -36,7 +32,7 @@ width, height = 1920, 1080
 screen = pygame.display.set_mode((width, height), FULLSCREEN)
 pygame.display.set_caption("21 (Blackjack)")
 # Set font and size
-font = pygame.font.SysFont(None, 30)
+font = pygame.font.SysFont('arial', 30)
 # Create the exit butt
 # Define colors
 WHITE = (255, 255, 255)
@@ -44,10 +40,10 @@ BLACK = (0, 0, 0)
 hover_color = (255, 0, 0)
 button_color = (65, 93, 54)
 
+
 def exitButton(screen):
     exit_button = pygame.Rect(1390, 0, 70, 60)
     # Set the font for the button text
-    font = pygame.font.SysFont(None ,40)
     # Set the text for the button
     exit_text = font.render("X", True, (255, 255, 255))
     # Draw the button on the screen
@@ -80,7 +76,7 @@ def standButton(screen):
 
 
 def playAgain(screen):
-    play_again = pygame.Rect(680, 600, 140, 70)
+    play_again = pygame.Rect(700, 600, 140, 70)
     # Set the font for the button text
     # Set the text for the button
     play_again_text = font.render("Play again", True, (255, 255, 255))
@@ -91,7 +87,7 @@ def playAgain(screen):
         color = button_color
     # Draw the button on the screen
     pygame.draw.rect(screen, color, play_again)
-    screen.blit(play_again_text, (700, 644))
+    screen.blit(play_again_text, (700, 624))
     return play_again
 
 
@@ -99,7 +95,7 @@ def backs(screen):
     back_m = pygame.Rect(0, 0, 100, 50)
     # Set the font for the button text
     # Set the text for the button
-    back_m_text = font.render("Return", True, (255, 255, 255))
+    back_m_text = font.render("Back", True, (255, 255, 255))
     mouse_pos = pygame.mouse.get_pos()
     if back_m.collidepoint(mouse_pos):
         color = hover_color
@@ -212,8 +208,8 @@ def check_player_value(screen, font, card_images, dealer_hand, player_hand, draw
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         player_message = font.render(
-            "Player wins with 21 (Blackjack)!", True, (0, 0, 0))
-        screen.blit(player_message, (1000, 300))
+            "Player wins with 21 (Blackjack)!", True, (20, 255, 255))
+        screen.blit(player_message, (200, 300))
         pygame.display.flip()
         return True
 
@@ -225,8 +221,8 @@ def check_player_value(screen, font, card_images, dealer_hand, player_hand, draw
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         player_bust_message = font.render(
-            "The sum of the worth of your cards is higher than 21 dealer", True, (255, 55, 255))
-        screen.blit(player_bust_message, (700, 300))
+            "Player busts!", True, (255, 55, 255))
+        screen.blit(player_bust_message, (200, 300))
         pygame.display.flip()
         return True
     else:
@@ -242,8 +238,8 @@ def check_dealer_value(player_value, dealer_value):
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         dealer_message = font.render(
-            "Dealer have 21 (Blackjack) dealer win!", True, (0, 0, 0))
-        screen.blit(dealer_message, (1000, 300))
+            "Dealer wins with 21 (Blackjack)!", True, (25, 255, 255))
+        screen.blit(dealer_message, (200, 300))
         pygame.display.flip()
         return True
 
@@ -256,8 +252,8 @@ def check_dealer_value(player_value, dealer_value):
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         dealer_bust_message = font.render(
-            "Dealer busts! You win!", True, (0, 0, 0))
-        screen.blit(dealer_bust_message, (1000, 300))
+            "Dealer busts!", True, (255, 255, 55))
+        screen.blit(dealer_bust_message, (200, 300))
         pygame.display.flip()
         return True
 
@@ -269,8 +265,8 @@ def check_dealer_value(player_value, dealer_value):
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         dealer_bust_message = font.render(
-            "Dealer Win!", True, (0, 0, 0))
-        screen.blit(dealer_bust_message, (1000, 300))
+            "Dealer Win!", True, (255, 255, 55))
+        screen.blit(dealer_bust_message, (200, 300))
         pygame.display.flip()
         return True
     else:
@@ -350,6 +346,21 @@ while True:
     # Inicialización de variables
 
     # Handle events
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+            sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_s:  # Stop sound
+                sound_channel.stop()
+            elif event.key == pygame.K_n:
+                sound_channel.unpause()
+            elif event.key == pygame.K_p:
+                sound_channel.pause()
+            elif event.key == pygame.K_r:
+                pygame.mixer.music.play()
+            elif event.key == pygame.K_r:
+                sound_channel.play(sound)
     ts = True
     while ts:
 
@@ -357,7 +368,15 @@ while True:
             if event.type == pygame.QUIT:
                 running = False
                 sys.exit()
-
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_s:  # Stop sound
+                    sound_channel.stop()
+                elif event.key == pygame.K_n:
+                    sound_channel.unpause()
+                elif event.key == pygame.K_p:
+                    sound_channel.pause()
+                elif event.key == pygame.K_r:
+                    sound_channel.play(sound)
             # Check for mouse click
         if pygame.mouse.get_pressed()[0]:
             # Get the mouse position
@@ -368,11 +387,22 @@ while True:
                 if item_rect.collidepoint(mouse_pos):
                     print(index)
                     if index == 0:
-                        for event in pygame.event.get():
-                            if event.type == QUIT:
-                                sys.exit()
                         m_run = True
                         while m_run:
+                            for event in pygame.event.get():
+                                if event.type == pygame.QUIT:
+                                    pygame.quit()
+                                    sys.exit()
+                                if event.type == pygame.KEYDOWN:
+                                    if event.key == pygame.K_s:  # Stop sound
+                                        sound_channel.stop()
+                                    elif event.key == pygame.K_n:
+                                        sound_channel.unpause()
+                                    elif event.key == pygame.K_p:
+                                        sound_channel.pause()
+                                        print('puse')
+                                    elif event.key == pygame.K_r:
+                                        sound_channel.play(sound)
                             # Perform action based on the menu item
                             card_values = ["A", "2", "3", "4", "5",
                                            "6", "7", "8", "9", "1", "J", "Q", "K"]
@@ -457,6 +487,19 @@ while True:
                                 for event in pygame.event.get():
                                     if event.type == QUIT:
                                         sys.exit()
+                                    if event.type == pygame.QUIT:
+                                        pygame.quit()
+                                        sys.exit()
+                                    if event.type == pygame.KEYDOWN:
+                                        if event.key == pygame.K_s:  # Stop sound
+                                            sound_channel.stop()
+                                        elif event.key == pygame.K_n:
+                                            sound_channel.unpause()
+                                        elif event.key == pygame.K_p:
+                                            sound_channel.pause()
+                                            print('puse')
+                                        elif event.key == pygame.K_r:
+                                            sound_channel.play(sound)
 
                                 # Check if the button is clicked
                                 if pygame.mouse.get_pressed()[0]:
@@ -511,7 +554,19 @@ while True:
                                     bg_img(width, height, screen)
                                     menu_optinos(
                                         screen, font, BLACK, menu_items, item_rects)
-
+                            for event in pygame.event.get():
+                                if event.type == pygame.QUIT:
+                                    pygame.quit()
+                                    sys.exit()
+                                if event.type == pygame.KEYDOWN:
+                                    if event.key == pygame.K_s:  # Stop sound
+                                        sound_channel.stop()
+                                    elif event.key == pygame.K_n:
+                                        sound_channel.unpause()
+                                    elif event.key == pygame.K_p:
+                                        sound_channel.pause()
+                                    elif event.key == pygame.K_r:
+                                        sound_channel.play(sound)
                             clock.tick(60)
                             pygame.display.update()
 
