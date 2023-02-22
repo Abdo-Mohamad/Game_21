@@ -299,23 +299,26 @@ def menu_optinos(screen, font, BLACK, menu_items, item_rects):
 
 clock = pygame.time.Clock()
 # Create a varibel for displaying text
-regles = ("————Reglas————",
-          "El objetivo del juego es conseguir o aproximarse al número 21", "sumando el número de las cartas que te aparecen.",
+regles = ("----RULES----",
+          "The objective of the game is to get or approach the number 21",
+          "by adding the number of cards that appear to you.",
 
 
-          "Si la suma de los números de tus cartas superan 21 pierdes.",
-          "Si el valor de la suma de las cartas es igual a 21 automáticamente ganas.",
-          "Empiezas con 2 cartas, donde la suma máxima de las 2 cartas iniciales es 20.",
-          "El crupier solo participa en el juego si el jugador se ha quedado con un valor",
-          "inferior o igual a 20.",
+          "If the sum of the numbers of your cards exceeds 21 you lose.",
+          "If the value of the sum of the cards is equal to 21 you automatically win.",
+          "You start with 2 cards, where the maximum sum of the 2 starting cards is 20.",
+          "The dealer only participates in the game if the player has been left",
+          "with a value less than or equal to 20.",
+          "",
 
 
 
 
-          "·····Valor de la cartas·····",
-          "Las cartas con un valor numérico se quedan igual, es decir, el 2 vale 2 y el 10",
-          "vale 10, así con todos los números.",
-          "El valor de las figuras es el siguiente:",
+
+          "·····VALUE OF THE CARDS·····",
+          "The cards with a numerical value stay the same, that is to say, 2 is worth 2 and 10.",
+          "is worth 10 like this with all numbers",
+          "The value of the figures is the following:",
           "J, Q, K = 10",
           "A = 1")
 
@@ -329,8 +332,8 @@ def text(screen):
         if i == 0:
             y = r
             c = 600
-        elif i == 8:
-            c = 600
+        elif i == 9:
+            c = 550
         img = font.render(x, True, (0, 0, 0))
         screen.blit(img, (c, y))
 
