@@ -5,10 +5,12 @@ import random
 import time
 import numpy as np
 from pygame import mixer
+import imageio.v3 as iio
 # Initialize Pygame
 
 
 pygame.init()
+
 
 
 def play_sound(sound_path, volume=1.0, loops=0):
@@ -39,6 +41,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 hover_color = (204, 0, 0)
 button_color = (0, 0, 0)
+
 
 def exitButton(screen):
     exit_button = pygame.Rect(1390, 0, 70, 60)
@@ -252,9 +255,10 @@ def check_dealer_value(player_value, dealer_value):
         return True
 
     elif dealer_value >= player_value < 21:
+
         draw_card(screen, card_images, dealer_hand, player_hand)
-        bg_img(width, height, screen)
         backs(screen)
+        bg_img(width, height, screen)
         exitButton(screen)
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
