@@ -37,12 +37,13 @@ font = pygame.font.SysFont('arial', 30)
 # Define colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-hover_color = (255, 0, 0)
-button_color = (65, 93, 54)
+hover_color = (204, 0, 0)
+button_color = (0, 0, 0)
 
 def exitButton(screen):
     exit_button = pygame.Rect(1390, 0, 70, 60)
     # Set the font for the button text
+    font = pygame.font.SysFont(None, 40)
     # Set the text for the button
     exit_text = font.render("X", True, (255, 255, 255))
     # Draw the button on the screen
@@ -52,14 +53,14 @@ def exitButton(screen):
     else:
         color = button_color
     pygame.draw.rect(screen, color, exit_button)
-    screen.blit(exit_text, (1407, 18))
+    screen.blit(exit_text, (1409, 18))
     return exit_button
 
 # Create the stand button
 
 
 def standButton(screen):
-    stand_button = pygame.Rect(760, 700, 100, 75)
+    stand_button = pygame.Rect(760, 770, 100, 75)
     # Set the font for the button text
     # Set the text for the button
     stand_text = font.render("Stand", True, (255, 255, 255))
@@ -70,44 +71,11 @@ def standButton(screen):
         color = button_color
     # Draw the button on the screen
     pygame.draw.rect(screen, color, stand_button)
-    screen.blit(stand_text, (780, 730))
+    screen.blit(stand_text, (775, 793))
     return stand_button
 
-
-def playAgain(screen):
-    play_again = pygame.Rect(700, 600, 140, 70)
-    # Set the font for the button text
-    # Set the text for the button
-    play_again_text = font.render("Play again", True, (255, 255, 255))
-    mouse_pos = pygame.mouse.get_pos()
-    if play_again.collidepoint(mouse_pos):
-        color = hover_color
-    else:
-        color = button_color
-    # Draw the button on the screen
-    pygame.draw.rect(screen, color, play_again)
-    screen.blit(play_again_text, (700, 644))
-    return play_again
-
-
-def backs(screen):
-    back_m = pygame.Rect(0, 0, 100, 50)
-    # Set the font for the button text
-    # Set the text for the button
-    back_m_text = font.render("Back", True, (255, 255, 255))
-    mouse_pos = pygame.mouse.get_pos()
-    if back_m.collidepoint(mouse_pos):
-        color = hover_color
-    else:
-        color = button_color
-    # Draw the button on the screen
-    pygame.draw.rect(screen, color, back_m)
-    screen.blit(back_m_text, (12, 16))
-    return back_m
-
-
 def hit_Buton(screen):
-    hit_button = pygame.Rect(640, 700, 100, 75)
+    hit_button = pygame.Rect(640, 770, 100, 75)
     # Set the font for the button text
     # Set the text for the button
     hit_text = font.render("Hit", True, (255, 255, 255))
@@ -118,8 +86,39 @@ def hit_Buton(screen):
         color = button_color
     # Draw the button on the screen
     pygame.draw.rect(screen, color, hit_button)
-    screen.blit(hit_text, (675, 730))
+    screen.blit(hit_text, (670, 793))
     return hit_button
+
+def playAgain(screen):
+    play_again = pygame.Rect(680, 700, 145, 70)
+    # Set the font for the button text
+    # Set the text for the button
+    play_again_text = font.render("Play again", True, (255, 255, 255))
+    mouse_pos = pygame.mouse.get_pos()
+    if play_again.collidepoint(mouse_pos):
+        color = hover_color
+    else:
+        color = button_color
+    # Draw the button on the screen
+    pygame.draw.rect(screen, color, play_again)
+    screen.blit(play_again_text, (685, 717))
+    return play_again
+
+
+def backs(screen):
+    back_m = pygame.Rect(0, 0, 100, 50)
+    # Set the font for the button text
+    # Set the text for the button
+    back_m_text = font.render("Return", True, (255, 255, 255))
+    mouse_pos = pygame.mouse.get_pos()
+    if back_m.collidepoint(mouse_pos):
+        color = hover_color
+    else:
+        color = button_color
+    # Draw the button on the screen
+    pygame.draw.rect(screen, color, back_m)
+    screen.blit(back_m_text, (12, 16))
+    return back_m
 
 
 def bg_img(width, height, screen):
@@ -165,33 +164,29 @@ def draw_card(screen, card_images, dealer_hand, player_hand):
     image_size_w = 150
     image_size_h = 225
     for i, cardy in enumerate(dealer_hand):
-        y = i * 200
+        y = (i * 140) + 50
         # print(i)
         if i < 1:
+    
 
-            imagey = pygame.transform.scale(
-                card_images[cardy], (image_size_w, image_size_h))
-            screen.blit(imagey, (y, 50))
-            back = pygame.image.load('cards/card_back.jpg')
-            back = pygame.transform.scale(
-                back, (image_size_w, image_size_h))
-            screen.blit(back, (y+200, 50))
-
+                imagey = pygame.transform.scale(
+                    card_images[cardy], (image_size_w, image_size_h))
+                screen.blit(imagey, (y, 85))
+                back = pygame.image.load('cards/card_back.jpg')
+                back = pygame.transform.scale(
+                    back, (image_size_w, image_size_h))
+                screen.blit(back, (y+140, 85))
         else:
             imagey = pygame.transform.scale(
                 card_images[cardy], (image_size_w, image_size_h))
-            screen.blit(imagey, (y, 50))
+            screen.blit(imagey, (y, 85))
 
     for i, cardx in enumerate(player_hand):
-        x = i * 100
+        x = (i * 140) + 50
         if i < 2:
-            if x == 0:
-                x = 20
             imagex = pygame.transform.scale(
                 card_images[cardx], (image_size_w, image_size_h))
             screen.blit(imagex, (x, 400))
-            if x == 1:
-                screen.blit(imagex, (x, 200))
         else:
             imagex = pygame.transform.scale(
                 card_images[cardx], (image_size_w, image_size_h))
@@ -207,8 +202,8 @@ def check_player_value(screen, font, card_images, dealer_hand, player_hand, draw
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         player_message = font.render(
-            "Player wins with 21 (Blackjack)!", True, (0, 0, 0))
-        screen.blit(player_message, (1000, 300))
+            "Player wins with Blackjack (21)!", True, (0, 0, 0))
+        screen.blit(player_message, (500, 350))
         pygame.display.flip()
         return True
 
@@ -220,8 +215,8 @@ def check_player_value(screen, font, card_images, dealer_hand, player_hand, draw
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         player_bust_message = font.render(
-            "The sum of the worth of your cards is higher than 21 dealer", True, (255, 55, 255))
-        screen.blit(player_bust_message, (700, 300))
+            "The amount of the worth of your cards is higher than 21 dealer win!", True, (0, 0, 0))
+        screen.blit(player_bust_message, (350, 350))
         pygame.display.flip()
         return True
     else:
@@ -237,8 +232,8 @@ def check_dealer_value(player_value, dealer_value):
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         dealer_message = font.render(
-            "Dealer have 21 (Blackjack) dealer win!", True, (0, 0, 0))
-        screen.blit(dealer_message, (1000, 300))
+            "Dealer wins with Blackjack (21)!", True, (0, 0, 0))
+        screen.blit(dealer_message, (500, 350))
         pygame.display.flip()
         return True
 
@@ -251,8 +246,8 @@ def check_dealer_value(player_value, dealer_value):
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         dealer_bust_message = font.render(
-            "Dealer busts! You win!", True, (0, 0, 0))
-        screen.blit(dealer_bust_message, (1000, 300))
+            "The amount of the worth of dealer cards is higher than 21 you win!", True, (0, 0, 0))
+        screen.blit(dealer_bust_message, (350, 350))
         pygame.display.flip()
         return True
 
@@ -264,8 +259,8 @@ def check_dealer_value(player_value, dealer_value):
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
         dealer_bust_message = font.render(
-            "Dealer Win!", True, (0, 0, 0))
-        screen.blit(dealer_bust_message, (1000, 300))
+            "Dealer have higher number dealer win!", True, (0, 0, 0))
+        screen.blit(dealer_bust_message, (500, 350))
         pygame.display.flip()
         return True
     else:
@@ -278,7 +273,7 @@ menu_items = ['Start', 'Rules', 'Quit']
 # Create a list to store the menu items' rectangles
 item_rects = []
 
-# Draw player and dealer hands
+
 for index, item in enumerate(menu_items):
     item_rect = pygame.Rect(650, 300 + index * 100, 200, 50)
     item_rects.append(item_rect)
@@ -292,7 +287,7 @@ def menu_optinos(screen, font, BLACK, menu_items, item_rects):
         text = font.render(item, True, WHITE)
         screen.blit(text, (700, 315 + index * 100))
         font2 = pygame.font.SysFont('didot.ttc', 72)
-        img2 = font2.render('Black Jack 21', True, BLACK)
+        img2 = font2.render('BlackJack 21', True, BLACK)
         screen.blit(img2, (600, 115))
 
 
@@ -355,10 +350,12 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:  # Stop sound
                 sound_channel.stop()
-            elif event.key == pygame.K_c:
+            elif event.key == pygame.K_n:
                 sound_channel.unpause()
             elif event.key == pygame.K_p:
                 sound_channel.pause()
+            elif event.key == pygame.K_r:
+                pygame.mixer.music.play()
             elif event.key == pygame.K_r:
                 sound_channel.play(sound)
     ts = True
@@ -371,7 +368,7 @@ while True:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_s:  # Stop sound
                     sound_channel.stop()
-                elif event.key == pygame.K_c:
+                elif event.key == pygame.K_n:
                     sound_channel.unpause()
                 elif event.key == pygame.K_p:
                     sound_channel.pause()
@@ -396,7 +393,7 @@ while True:
                                 if event.type == pygame.KEYDOWN:
                                     if event.key == pygame.K_s:  # Stop sound
                                         sound_channel.stop()
-                                    elif event.key == pygame.K_c:
+                                    elif event.key == pygame.K_n:
                                         sound_channel.unpause()
                                     elif event.key == pygame.K_p:
                                         sound_channel.pause()
@@ -493,7 +490,7 @@ while True:
                                     if event.type == pygame.KEYDOWN:
                                         if event.key == pygame.K_s:  # Stop sound
                                             sound_channel.stop()
-                                        elif event.key == pygame.K_c:
+                                        elif event.key == pygame.K_n:
                                             sound_channel.unpause()
                                         elif event.key == pygame.K_p:
                                             sound_channel.pause()
@@ -561,7 +558,7 @@ while True:
                                 if event.type == pygame.KEYDOWN:
                                     if event.key == pygame.K_s:  # Stop sound
                                         sound_channel.stop()
-                                    elif event.key == pygame.K_c:
+                                    elif event.key == pygame.K_n:
                                         sound_channel.unpause()
                                     elif event.key == pygame.K_p:
                                         sound_channel.pause()
