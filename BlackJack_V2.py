@@ -12,6 +12,19 @@ import imageio.v3 as iio
 pygame.init()
 
 
+# Set screen size and caption
+width, height = 1920, 1080
+screen = pygame.display.set_mode((width, height), FULLSCREEN)
+pygame.display.set_caption("21 (Blackjack)")
+# Set font and size
+font = pygame.font.SysFont('arial', 30)
+# Create the exit butt
+# Define colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+hover_color = (204, 0, 0)
+button_color = (0, 0, 0)
+
 
 def play_sound(sound_path, volume=1.0, loops=0):
     """Function to play a sound in the background."""
@@ -29,18 +42,30 @@ sound = pygame.mixer.Sound("music/m1.mp3")
 sound_channel = play_sound("music/m1.mp3", volume=0.5, loops=-1)
 
 
-# Set screen size and caption
-width, height = 1920, 1080
-screen = pygame.display.set_mode((width, height), FULLSCREEN)
-pygame.display.set_caption("21 (Blackjack)")
-# Set font and size
-font = pygame.font.SysFont('arial', 30)
-# Create the exit butt
-# Define colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-hover_color = (204, 0, 0)
-button_color = (0, 0, 0)
+# Load the GIF frames as a list of numpy arrays
+gif_frames = iio.imread('5.gif')
+
+
+def gif(screen, gif_frames):
+    for frame in gif_frames:
+        # Convert the numpy array to a Pygame surface
+        surface = pygame.surfarray.make_surface(frame)
+
+    # Set the color key to black
+        surface.set_colorkey((0, 0, 0))
+
+    # Scale the surface to fit the window
+        surface = pygame.transform.scale(surface, (200, 200))
+
+    # Display the surface on the screen
+        screen.blit(surface, (0, 0))
+
+    # Update the screen
+        pygame.display.flip()
+    # Wait for a short time before displaying the next frame
+        pygame.time.wait(100)
+
+
 
 
 def exitButton(screen):
@@ -77,6 +102,7 @@ def standButton(screen):
     screen.blit(stand_text, (775, 793))
     return stand_button
 
+
 def hit_Buton(screen):
     hit_button = pygame.Rect(640, 770, 100, 75)
     # Set the font for the button text
@@ -91,6 +117,7 @@ def hit_Buton(screen):
     pygame.draw.rect(screen, color, hit_button)
     screen.blit(hit_text, (670, 793))
     return hit_button
+
 
 def playAgain(screen):
     play_again = pygame.Rect(680, 700, 145, 70)
@@ -170,15 +197,14 @@ def draw_card(screen, card_images, dealer_hand, player_hand):
         y = (i * 140) + 50
         # print(i)
         if i < 1:
-    
 
-                imagey = pygame.transform.scale(
-                    card_images[cardy], (image_size_w, image_size_h))
-                screen.blit(imagey, (y, 85))
-                back = pygame.image.load('cards/card_back.jpg')
-                back = pygame.transform.scale(
-                    back, (image_size_w, image_size_h))
-                screen.blit(back, (y+140, 85))
+            imagey = pygame.transform.scale(
+                card_images[cardy], (image_size_w, image_size_h))
+            screen.blit(imagey, (y, 85))
+            back = pygame.image.load('cards/card_back.jpg')
+            back = pygame.transform.scale(
+                back, (image_size_w, image_size_h))
+            screen.blit(back, (y+140, 85))
         else:
             imagey = pygame.transform.scale(
                 card_images[cardy], (image_size_w, image_size_h))
@@ -211,6 +237,7 @@ def check_player_value(screen, font, card_images, dealer_hand, player_hand, draw
         return True
 
     elif player_value > 21:
+        gif(screen, gif_frames)
         draw_card(screen, card_images, dealer_hand, player_hand)
         bg_img(width, height, screen)
         backs(screen)
@@ -220,6 +247,7 @@ def check_player_value(screen, font, card_images, dealer_hand, player_hand, draw
         player_bust_message = font.render(
             "The amount of the worth of your cards is higher than 21 dealer win!", True, (0, 0, 0))
         screen.blit(player_bust_message, (350, 350))
+        
         pygame.display.flip()
         return True
     else:
@@ -257,8 +285,8 @@ def check_dealer_value(player_value, dealer_value):
     elif dealer_value >= player_value < 21:
 
         draw_card(screen, card_images, dealer_hand, player_hand)
-        backs(screen)
         bg_img(width, height, screen)
+        backs(screen)
         exitButton(screen)
         playAgain(screen)
         draw_card(screen, card_images, dealer_hand, player_hand)
