@@ -42,30 +42,26 @@ sound = pygame.mixer.Sound("music/m1.mp3")
 sound_channel = play_sound("music/m1.mp3", volume=0.5, loops=-1)
 
 
-# Load the GIF frames as a list of numpy arrays
-gif_frames = iio.imread('5.gif')
+# def gif(screen, gif_frames):
+#     # Load the GIF frames as a list of numpy arrays
+#     gif_frames = iio.imread('5.gif')
+#     for frame in gif_frames:
+#         # Convert the numpy array to a Pygame surface
+#         surface = pygame.surfarray.make_surface(frame)
 
+#     # Set the color key to black
+#         surface.set_colorkey((0, 0, 0))
 
-def gif(screen, gif_frames):
-    for frame in gif_frames:
-        # Convert the numpy array to a Pygame surface
-        surface = pygame.surfarray.make_surface(frame)
+#     # Scale the surface to fit the window
+#         surface = pygame.transform.scale(surface, (200, 200))
 
-    # Set the color key to black
-        surface.set_colorkey((0, 0, 0))
+#     # Display the surface on the screen
+#         screen.blit(surface, (0, 0))
 
-    # Scale the surface to fit the window
-        surface = pygame.transform.scale(surface, (200, 200))
-
-    # Display the surface on the screen
-        screen.blit(surface, (0, 0))
-
-    # Update the screen
-        pygame.display.flip()
-    # Wait for a short time before displaying the next frame
-        pygame.time.wait(100)
-
-
+#     # Update the screen
+#         pygame.display.flip()
+#     # Wait for a short time before displaying the next frame
+#         pygame.time.wait(100)
 
 
 def exitButton(screen):
@@ -237,7 +233,6 @@ def check_player_value(screen, font, card_images, dealer_hand, player_hand, draw
         return True
 
     elif player_value > 21:
-        gif(screen, gif_frames)
         draw_card(screen, card_images, dealer_hand, player_hand)
         bg_img(width, height, screen)
         backs(screen)
@@ -247,7 +242,7 @@ def check_player_value(screen, font, card_images, dealer_hand, player_hand, draw
         player_bust_message = font.render(
             "The amount of the worth of your cards is higher than 21 dealer win!", True, (0, 0, 0))
         screen.blit(player_bust_message, (350, 350))
-        
+
         pygame.display.flip()
         return True
     else:
